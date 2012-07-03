@@ -19,14 +19,24 @@ public class BlockBreakListener implements Listener
 	@EventHandler
 	public void breakingCheck(BlockBreakEvent event)
 	{
+		boolean isBuilder = false;
 		for (Region r : plugin.regions)
 		{
 			if (r.containsLocation(event.getBlock().getLocation()))
 			{
-				if (r.getOwner() != event.getPlayer())
+				if (event.getPlayer().getName().equalsIgnoreCase(r.getOwner().getName()))
+					isBuilder = true;
+				
+				for (int x = 0; x < r.getBuilders().size() && !isBuilder; x++)
+				{
+					isBuilder = r.getBuilders().get(x).getName().equalsIgnoreCase(event.getPlayer().getName());
+				}
+				
+				if (!isBuilder)
 				{
 					event.setCancelled(true);
 					event.getPlayer().sendMessage(ChatColor.RED + "This is part of " + r.getOwner().getName() + "'s home.");
+					break;
 				}
 			}
 		}
@@ -35,14 +45,24 @@ public class BlockBreakListener implements Listener
 	@EventHandler
 	public void placingCheck(BlockPlaceEvent event)
 	{
+		boolean isBuilder = false;
 		for (Region r : plugin.regions)
 		{
 			if (r.containsLocation(event.getBlock().getLocation()))
 			{
-				if (r.getOwner() != event.getPlayer())
+				if (event.getPlayer().getName().equalsIgnoreCase(r.getOwner().getName()))
+					isBuilder = true;
+				
+				for (int x = 0; x < r.getBuilders().size() && !isBuilder; x++)
+				{
+					event.getPlayer().sendMessage(isBuilder ? "is a builder" : "isnt a builder");
+				}
+				
+				if (!isBuilder)
 				{
 					event.setCancelled(true);
-					event.getPlayer().sendMessage(ChatColor.RED + "This is part of " + event.getPlayer().getName() + "'s home.");
+					event.getPlayer().sendMessage(ChatColor.RED + "This is part of " + r.getOwner().getName() + "'s home.");
+					break;
 				}
 			}
 		}

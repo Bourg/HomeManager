@@ -3,13 +3,18 @@ main: com.github.SaxSalute.HomeManager.HomeManager
 version: 1
 
 commands:
-    managehomes:
-        description: Used to create and delede homes
-        usage: /managehomes [operation] [home name]
-        permission: HomeManager.managehomes
+    createhome:
+        description: Used to create and homes
+        usage: /createhome [home name]
+        permission: HomeManager.createhome
         permission-message: You don't have <permission>
-    homeinfo:
-        description: Gives information about homes
-        usage: /homeinfo [operation]
-        permission: HomeManager.listhomes
+    deletehome:
+        description: Used to delete homes
+        usage: /deletehome [home name]
+        permission: HomeManager.deletehome
+        permission-message: You don't have <permission>
+    addbuilder:
+        description: Used to add builders to homes
+        usage: /addbuilder [builder name] [home name]
+        permission: HomeManager.addbuilder
         permission-message: You don't have <permission>

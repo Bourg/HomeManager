@@ -12,8 +12,9 @@ import java.util.Map;
 public class HomeManager extends JavaPlugin
 {
 	//The command executors
-	private ManageHomesCommandExecutor manageHomeExecutor;
-	private HomeInfoCommandExecutor homeInfoExecutor;
+	private CreateHomeCommandExecutor createHomeExecutor;
+	private DeleteHomeCommandExecutor deleteHomeExecutor;
+	private AddBuilderCommandExecutor addBuilderExecutor;
 	//A map of Players and the two locations that they have selected
 	protected Map<Player, Location[]> selectedLocations;
 	protected SaveLoad saveload;
@@ -28,11 +29,13 @@ public class HomeManager extends JavaPlugin
 		regions = new ArrayList<Region>();
 		
 		//Creates the command executor and register the commands
-		manageHomeExecutor = new ManageHomesCommandExecutor(this);
-		homeInfoExecutor = new HomeInfoCommandExecutor(this);
+		createHomeExecutor = new CreateHomeCommandExecutor(this);
+		deleteHomeExecutor = new DeleteHomeCommandExecutor(this);
+		addBuilderExecutor = new AddBuilderCommandExecutor(this);
 		
-		getCommand("managehomes").setExecutor(manageHomeExecutor);
-		getCommand("homeinfo").setExecutor(homeInfoExecutor);
+		getCommand("createhome").setExecutor(createHomeExecutor);
+		getCommand("deletehome").setExecutor(deleteHomeExecutor);
+		getCommand("addbuilder").setExecutor(addBuilderExecutor);
 		
 		//Registers the wand click listener
 		getServer().getPluginManager().registerEvents(new WandClickListener(this), this);

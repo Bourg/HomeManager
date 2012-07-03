@@ -11,6 +11,7 @@ public class Region
 	String regionName;
 	Player regionOwner;
 	Location locationA, locationB;
+	ArrayList<Player> builders;
 	
 	//WARNING! DO NOT USE TO SAVE LOCATIONS, ONLY FOR ONE TIME USES!
 	public Region(Location a, Location b)
@@ -48,6 +49,8 @@ public class Region
 		
 		regionOwner = owner;
 		regionName = name;
+		
+		builders = new ArrayList<Player>();
 	}
 	
 	public String getName()
@@ -119,5 +122,25 @@ public class Region
 	public boolean containsLocation(Location loc)
 	{		
 		return this.overlap(new Region(loc, loc));
+	}
+	
+	public void addBuilder(Player b)
+	{
+		builders.add(b);
+	}
+	
+	public void removeBuilder(String s)
+	{
+		for (int x = 0; x < builders.size(); x++)
+			if (builders.get(x).getName().equalsIgnoreCase(s))
+			{
+				builders.remove(x);
+				return;
+			}
+	}
+	
+	public ArrayList<Player> getBuilders()
+	{
+		return builders;
 	}
 }

@@ -131,18 +131,59 @@ public class ManageHomesCommandExecutor implements CommandExecutor
 					}
 				}
 				//If an invalid args[0] is supplied
-				else
+			}
+			
+			
+			
+			else if (args.length == 3)
+			{
+				if (args[0].equalsIgnoreCase("addbuilder"))
 				{
-					sender.sendMessage(ChatColor.RED + args[0] + " is an invalid argument. Valid arguments include:\ncreate [name] - Create a new home.\ndelete [name] - Delete an existing home.");
-					return true;
+					if (plugin.getServer().getPlayer(args[2]) != null)
+					{
+						Region tempRegion = null;
+						int x = 0;
+						for (; x < plugin.regions.size(); x++)
+							if (plugin.regions.get(x).getName().equalsIgnoreCase(args[1]))
+							{
+								tempRegion = plugin.regions.get(x);
+								break;
+							}
+						
+						if (tempRegion != null)
+						{		
+							if (player == null || plugin.regions.get(x).getOwner().getName().equalsIgnoreCase(player.getName()))
+							{
+								plugin.regions.get(x).addBuilder(plugin.getServer().getPlayer(args[2]));
+								sender.sendMessage(ChatColor.GREEN + args[2] + " is now allowed to build in home " + args[1]);
+								return true;
+							}
+							else
+							{
+								sender.sendMessage(ChatColor.RED + "You must be the home owner to add a builder.");
+								return true;
+							}
+						}
+						else
+						{
+							sender.sendMessage(ChatColor.RED + "Home " + args[1] + " was not found.");
+							return true;
+						}
+					}
+					else
+					{
+						sender.sendMessage(ChatColor.RED + "Player " + args[2] + " is not online. Please try again when the player is online.");
+						return true;
+					}
 				}
 			}
-			//If a number of arguments other than 2 is supplied
+			//If a number of arguments with no match is supplied
 			else
 			{
 				sender.sendMessage(ChatColor.RED + "/managehomes takes at least two arguments.");
-			}			
+			}
 		}
+		sender.sendMessage(ChatColor.RED + "create [home name] - Create a new home.\ndelete [home name] - Delete an existing home.\naddbuilder [home name] [player name]");
 		
 		return false;
 	}
