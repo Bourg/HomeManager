@@ -108,16 +108,25 @@ public class ManageHomesCommandExecutor implements CommandExecutor
 					//If the home exists
 					if (position != -1)
 					{
-						//Delete it and notify the player
-						plugin.regions.remove(position);
-						sender.sendMessage(ChatColor.GREEN + "Home " + args[1] + " has been deleted.");
-						return true;
+						if (!plugin.regions.get(position).getOwner().isOp() || (plugin.regions.get(position).getOwner().isOp() && (player == null || plugin.regions.get(position).getOwner().equals(player))))
+						{
+							//Delete it and notify the player
+							plugin.regions.remove(position);
+							sender.sendMessage(ChatColor.GREEN + "Home " + args[1] + " has been deleted.");
+							return true;
+						}
+						
+						else
+						{
+							sender.sendMessage(ChatColor.RED + "This home is owned by an Op. This home may only be deleted by the owner or by the server console.");
+							return true;
+						}
 					}
 					//If the home does not exist
 					else
 					{
 						//Notify the player
-						sender.sendMessage(ChatColor.RED + "Home" + args[1] + " was not found.");
+						sender.sendMessage(ChatColor.RED + "Home " + args[1] + " was not found.");
 						return true;
 					}
 				}
