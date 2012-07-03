@@ -1,0 +1,15 @@
+name: Home Manager
+main: com.github.SaxSalute.HomeManager.HomeManager
+version: 1
+
+commands:
+    managehomes:
+        description: Used to create and delede homes
+        usage: /managehomes [operation] [home name]
+        permission: HomeManager.managehomes
+        permission-message: You don't have <permission>
+    homeinfo:
+        description: Gives information about homes
+        usage: /homeinfo [operation]
+        permission: HomeManager.listhomes
+        permission-message: You don't have <permission>
