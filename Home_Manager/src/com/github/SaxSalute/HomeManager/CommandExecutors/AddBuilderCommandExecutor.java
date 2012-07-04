@@ -49,9 +49,7 @@ public class AddBuilderCommandExecutor implements CommandExecutor
 					{		
 						if (player == null || plugin.getRegions().get(x).getOwner().getName().equalsIgnoreCase(player.getName()))
 						{
-							tempRegion = plugin.getRegions().get(x);
-							tempRegion.addBuilder(plugin.getServer().getPlayer(args[1]));
-							plugin.setRegion(x, tempRegion);
+							plugin.setRegion(x, plugin.getRegions().get(x).addBuilder(plugin.getServer().getPlayer(args[1])));
 							sender.sendMessage(ChatColor.GREEN + args[1] + " is now allowed to build in home " + args[0]);
 							return true;
 						}

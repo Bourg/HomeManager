@@ -124,9 +124,10 @@ public class Region
 		return this.overlap(new Region(loc, loc));
 	}
 	
-	public void addBuilder(Player b)
+	public Region addBuilder(Player b)
 	{
 		builders.add(b);
+		return this;
 	}
 	
 	public void removeBuilder(String s)
