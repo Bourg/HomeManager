@@ -18,6 +18,11 @@ commands:
         usage: /addbuilder [builder name] [home name]
         permission: HomeManager.addbuilder
         permission-message: You don't have <permission>
+    listhomes:
+        description: Used to list all homes on the server
+        usage: /listhomes [optional modifier]
+        permission: HomeManager.listhomes
+        permission-message: You don't have <permission>
         
 permissions:
     HomeManager.*:
@@ -34,4 +39,7 @@ permissions:
         default: op
     HomeManager.addbuilder:
         description: Allows a user to add builders to homes which they own
+        default: true
+    HomeManager.listhomes:
+        description: Allows a user to list all of the homes on the server
         default: true

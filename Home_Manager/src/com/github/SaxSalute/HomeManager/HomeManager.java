@@ -4,6 +4,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Location;
 
+import com.github.SaxSalute.HomeManager.CommandExecutors.AddBuilderCommandExecutor;
+import com.github.SaxSalute.HomeManager.CommandExecutors.CreateHomeCommandExecutor;
+import com.github.SaxSalute.HomeManager.CommandExecutors.DeleteHomeCommandExecutor;
+import com.github.SaxSalute.HomeManager.CommandExecutors.ListHomesCommandExecutor;
+import com.github.SaxSalute.HomeManager.Listeners.BlockBreakListener;
+import com.github.SaxSalute.HomeManager.Listeners.WandClickListener;
+import com.github.SaxSalute.HomeManager.Region.Region;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,11 +23,11 @@ public class HomeManager extends JavaPlugin
 	private CreateHomeCommandExecutor createHomeExecutor;
 	private DeleteHomeCommandExecutor deleteHomeExecutor;
 	private AddBuilderCommandExecutor addBuilderExecutor;
+	private ListHomesCommandExecutor listHomesExecutor;
 	//A map of Players and the two locations that they have selected
-	protected Map<Player, Location[]> selectedLocations;
-	protected SaveLoad saveload;
+	private Map<Player, Location[]> selectedLocations;
 	//An arraylist of all regions
-	protected ArrayList<Region> regions;
+	private ArrayList<Region> regions;
 	
 	public void onEnable()
 	{
@@ -32,10 +40,12 @@ public class HomeManager extends JavaPlugin
 		createHomeExecutor = new CreateHomeCommandExecutor(this);
 		deleteHomeExecutor = new DeleteHomeCommandExecutor(this);
 		addBuilderExecutor = new AddBuilderCommandExecutor(this);
+		listHomesExecutor = new ListHomesCommandExecutor(this);
 		
 		getCommand("createhome").setExecutor(createHomeExecutor);
 		getCommand("deletehome").setExecutor(deleteHomeExecutor);
 		getCommand("addbuilder").setExecutor(addBuilderExecutor);
+		getCommand("listhomes").setExecutor(listHomesExecutor);
 		
 		//Registers the wand click listener
 		getServer().getPluginManager().registerEvents(new WandClickListener(this), this);
@@ -49,5 +59,42 @@ public class HomeManager extends JavaPlugin
 	public void onDisable()
 	{
 		getLogger().info("Home Manager has been disabled");
+	}
+	
+	public Map<Player, Location[]> getSelectedLocations()
+	{
+		return selectedLocations;
+	}
+	
+	public ArrayList<Region> getRegions()
+	{
+		return regions;
+	}
+	
+	public void addSelectedLocation(Player p)
+	{
+		selectedLocations.put(p, new Location[2]);
+	}
+	
+	public void setSelectedLocation(Player p, int i, Location l)
+	{
+		selectedLocations.get(p)[i] = l;
+	}
+	
+	public void addRegion(Region r)
+	{
+		if (regions == null)
+			regions = new ArrayList<Region>();
+		regions.add(r);
+	}
+	
+	public void setRegion(int i, Region r)
+	{
+		regions.set(i, r);
+	}
+	
+	public void removeRegion(int i)
+	{
+		regions.remove(i);
 	}
 }
