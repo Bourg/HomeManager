@@ -18,3 +18,20 @@ commands:
         usage: /addbuilder [builder name] [home name]
         permission: HomeManager.addbuilder
         permission-message: You don't have <permission>
+        
+permissions:
+    HomeManager.*:
+        description: Gives access to all of the HomeManager commands
+        children:
+            HomeManager.createhome: true
+            HomeManager.deletehome: true
+            HomeManager.addbuilder: true
+    HomeManager.createhome:
+        description: Allows a user to create homes
+        default: op
+    HomeManager.deletehome:
+        description: Allows a user to delete homes
+        default: op
+    HomeManager.addbuilder:
+        description: Allows a user to add builders to homes which they own
+        default: true

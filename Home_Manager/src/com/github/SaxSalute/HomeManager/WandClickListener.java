@@ -27,7 +27,10 @@ public class WandClickListener implements Listener
 		if (event.getPlayer().getItemInHand().getType().equals(Material.FEATHER))
 		{
 			//Stores the location of the clicked block
-			Location blockLoc = event.getClickedBlock().getLocation();//Null poiner
+			if (event.getClickedBlock() == null)
+				return;
+			
+			Location blockLoc = event.getClickedBlock().getLocation(); //Null pointer
 			//Stores the point number of the clicked block
 			int pointNumber = (event.getAction() == Action.LEFT_CLICK_BLOCK ? 0 : 1);
 			
