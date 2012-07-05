@@ -130,18 +130,36 @@ public class Region
 		return this;
 	}
 	
-	public void removeBuilder(String s)
+	public Region removeBuilder(String s)
 	{
 		for (int x = 0; x < builders.size(); x++)
 			if (builders.get(x).getName().equalsIgnoreCase(s))
 			{
 				builders.remove(x);
-				return;
+				break;
 			}
+		return this;
+	}
+	
+	public Region removeBuilder(Player p)
+	{
+		for (int x = 0; x < builders.size(); x++)
+			if (builders.get(x).getName().equalsIgnoreCase(p.getName()))
+			{
+				builders.remove(x);
+				break;
+			}
+		return this;
 	}
 	
 	public ArrayList<Player> getBuilders()
 	{
 		return builders;
+	}
+	
+	public Region setOwner(Player p)
+	{
+		regionOwner = p;
+		return this;
 	}
 }

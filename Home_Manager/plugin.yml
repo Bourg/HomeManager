@@ -8,16 +8,31 @@ commands:
         usage: /createhome [home name]
         permission: HomeManager.createhome
         permission-message: You don't have <permission>
+        
     deletehome:
         description: Used to delete homes
         usage: /deletehome [home name]
         permission: HomeManager.deletehome
         permission-message: You don't have <permission>
+        
     addbuilder:
         description: Used to add builders to homes
-        usage: /addbuilder [builder name] [home name]
+        usage: /addbuilder [home name] [builder name]
         permission: HomeManager.addbuilder
         permission-message: You don't have <permission>
+        
+    removebuilder:
+        description: Used to remove builders from homes
+        usage: /removebuilder [home name] [builder name]
+        permission: HomeManager.removebuilder
+        permission-message: You don't have <permission>
+        
+    transferowner:
+        description: Used to change the owner of a home
+        usage: /transferowner [home name] [player name]
+        permission: HomeManager.transferowner
+        permission-message: You don't have <permission>
+        
     listhomes:
         description: Used to list all homes on the server
         usage: /listhomes [optional modifier]
@@ -31,15 +46,40 @@ permissions:
             HomeManager.createhome: true
             HomeManager.deletehome: true
             HomeManager.addbuilder: true
+            HomeManager.removebuilder: true
+            HomeManager.transferowner: true
+            HomeManager.listhomes: true
+            
+    HomeManager.denyall:
+        description: Disallows a player from using any HomeManager commands
+        children:
+            HomeManager.createhome: false
+            HomeManager.deletehome: false
+            HomeManager.addbuilder: false
+            HomeManager.removebuilder: false
+            HomeManager.transferowner: false
+            HomeManager.listhomes: false
+            
     HomeManager.createhome:
         description: Allows a user to create homes
         default: op
+        
     HomeManager.deletehome:
         description: Allows a user to delete homes
         default: op
+        
     HomeManager.addbuilder:
         description: Allows a user to add builders to homes which they own
         default: true
+        
+    HomeManager.removebuilder:
+        description: Allows a user to remove builders from homes which they own
+        default: true
+        
+    HomeManager.transferowner:
+        description: Allows a user to change the owner of homes which they own
+        default: true
+        
     HomeManager.listhomes:
         description: Allows a user to list all of the homes on the server
         default: true

@@ -8,6 +8,8 @@ import com.github.SaxSalute.HomeManager.CommandExecutors.AddBuilderCommandExecut
 import com.github.SaxSalute.HomeManager.CommandExecutors.CreateHomeCommandExecutor;
 import com.github.SaxSalute.HomeManager.CommandExecutors.DeleteHomeCommandExecutor;
 import com.github.SaxSalute.HomeManager.CommandExecutors.ListHomesCommandExecutor;
+import com.github.SaxSalute.HomeManager.CommandExecutors.RemoveBuilderCommandExecutor;
+import com.github.SaxSalute.HomeManager.CommandExecutors.TransferOwnerCommandExecutor;
 import com.github.SaxSalute.HomeManager.Listeners.BlockBreakListener;
 import com.github.SaxSalute.HomeManager.Listeners.WandClickListener;
 import com.github.SaxSalute.HomeManager.Region.Region;
@@ -24,6 +26,8 @@ public class HomeManager extends JavaPlugin
 	private DeleteHomeCommandExecutor deleteHomeExecutor;
 	private AddBuilderCommandExecutor addBuilderExecutor;
 	private ListHomesCommandExecutor listHomesExecutor;
+	private RemoveBuilderCommandExecutor removeBuilderExecutor;
+	private TransferOwnerCommandExecutor transferOwnerExecutor;
 	//A map of Players and the two locations that they have selected
 	private Map<Player, Location[]> selectedLocations;
 	//An arraylist of all regions
@@ -41,11 +45,15 @@ public class HomeManager extends JavaPlugin
 		deleteHomeExecutor = new DeleteHomeCommandExecutor(this);
 		addBuilderExecutor = new AddBuilderCommandExecutor(this);
 		listHomesExecutor = new ListHomesCommandExecutor(this);
+		removeBuilderExecutor = new RemoveBuilderCommandExecutor(this);
+		transferOwnerExecutor = new TransferOwnerCommandExecutor(this);
 		
 		getCommand("createhome").setExecutor(createHomeExecutor);
 		getCommand("deletehome").setExecutor(deleteHomeExecutor);
 		getCommand("addbuilder").setExecutor(addBuilderExecutor);
 		getCommand("listhomes").setExecutor(listHomesExecutor);
+		getCommand("removebuilder").setExecutor(removeBuilderExecutor);
+		getCommand("transferowner").setExecutor(transferOwnerExecutor);
 		
 		//Registers the wand click listener
 		getServer().getPluginManager().registerEvents(new WandClickListener(this), this);
